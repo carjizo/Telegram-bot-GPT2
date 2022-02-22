@@ -9,8 +9,8 @@ class ChatbotBrain:
         contexto,
         translation_artifacts_english,
         translation_artifacts_spanish,
-        model="microsoft/DialoGPT-large",
-        tokenizer="microsoft/DialoGPT-large",
+        model="microsoft/DialoGPT-small",
+        tokenizer="microsoft/DialoGPT-small",
         translate=True,
         sentiment_analisis=False,
         seed=44,
@@ -193,5 +193,6 @@ class ChatbotBrain:
 
         if self.sentiment_analisis:
             return generated_text, sentiment
+            # return generated_text
 
         return generated_text

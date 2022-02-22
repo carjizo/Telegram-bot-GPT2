@@ -8,7 +8,7 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from chatbot_brain import ChatbotBrain
 from transformers import MarianMTModel, MarianTokenizer
-# from transformers import BlenderbotTokenizer, BlenderbotForConditionalGeneration
+
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s," 
@@ -37,9 +37,8 @@ else:
     logger.info("No se especificó el MODE.")
     sys.exit()
 
-# tokenizer = BlenderbotTokenizer.from_pretrained("facebook/blenderbot-400M-distill")
-# model = BlenderbotForConditionalGeneration.from_pretrained("facebook/blenderbot-400M-distill")
-# force_download=True
+
+
 tokenizer_en_t_es = MarianTokenizer.from_pretrained(
     "Helsinki-NLP/opus-mt-en-ROMANCE"
 )
@@ -53,7 +52,7 @@ tokenizer_es_t_en = MarianTokenizer.from_pretrained(
 model_es_t_en = MarianMTModel.from_pretrained(
     "Helsinki-NLP/opus-mt-ROMANCE-en")
 
-    
+
 contexto = """who are you?
 My name is Pequenin, I'm a robot from the future, I'm trapped \
 in a teddy bear, I hate people and I love to wet people, Hector \
@@ -102,19 +101,6 @@ def esp_to_english(text):
     return tgt_text[0]
 
 
-
-
-
-#agregar comando de eventos para que los administradores, agreguen los eventos disponibles con sus fechas y horarios
-#datos como: el clima, noticias de tecnologia, o alguna informacion relevante
-
-
-# print(TOKEN)
-
-
-
-
-
 def start(update, context):
     # print(update)
     logger.info(f"El usuario {update.effective_user['username']}, ha iniciado una conversación")
@@ -131,14 +117,7 @@ def echo(update, context):
     user_id = update.effective_user['id']
     logger.info(f"El usuario {user_id}, ha enviado un mensaje de texto")
     text = update.message.text #guardamos mensaje
-    # frase = esp_to_english(text)
-    # entradaBlender = tokenizer([frase], return_tensors='pt')
-    # ids_respuesta = model.generate(**entradaBlender)
-    # respuesta = tokenizer.batch_decode(ids_respuesta)
-    # respuesta = respuesta[0].replace('<s>', '').replace('</s>', '')
-    # respuesta = eng_to_spanish(respuesta)
     output = chatbot.talk(text)
-    
     context.bot.sendMessage(
         chat_id=user_id,
         # parse_mode = "MarkdownV2",
