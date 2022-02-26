@@ -1,7 +1,7 @@
 import os
 
+# from prueba import TelegramBot
 from TelegramBot import TelegramBot
-
 
 token = os.getenv("TOKEN") #create an environment variable. pwershell = $env:TOKEN="token code", cmd = set TOKEN=token code
 

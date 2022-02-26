@@ -54,14 +54,23 @@ class TelegramBot:
         user_id = update.effective_user['id']
         self.logger.info(f"El usuario {user_id}, ha enviado un mensaje de texto")
         text = update.message.text #guardamos mensaje
-        print(text)
-        output = chatbot.talk(text)
-        context.bot.sendMessage(
-        chat_id=user_id,
-        # parse_mode = "MarkdownV2",
-        # text = f"*Escribiste:*\n_{respuesta}_"
-        text = f"{output}"
-        )   
+        with open("./archivos/emojis.txt", "r", encoding="utf-8") as f:
+            for line in f:
+                if text == line:
+                    context.bot.sendMessage(
+                    chat_id=user_id,
+                    # parse_mode = "MarkdownV2",
+                    # text = f"*Escribiste:*\n_{respuesta}_"
+                    text = f"{line}"
+                    )  
+
+                output = chatbot.talk(text)
+                context.bot.sendMessage(
+                chat_id=user_id,
+                # parse_mode = "MarkdownV2",
+                # text = f"*Escribiste:*\n_{respuesta}_"
+                text = f"{output}"
+                )   
         
 
     def run(self):
@@ -76,5 +85,3 @@ class TelegramBot:
         updater.start_polling()#preguntando por mensajes entrantes
         print("BOT RUN...")
         updater.idle() #cerrar el proceso
-
-
